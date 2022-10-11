@@ -41,3 +41,35 @@ console.log(twoSum(nums, 9)); // Output: [0, 1];
 console.log(twoSum(nums2, 6)); // Output: [1, 2];
 console.log(twoSum(nums3, 6)); // Output: [0, 1];
 
+// Solution 2
+
+function findTwoSum(nums, target) {
+    // Initializing object, or hash map called numObj
+    let numObj = {};
+
+    // Looping over array, but this time only once to make this solution an O(n).
+    for (let i = 0; i < nums.length; i++) {
+        // Creating additional variable called complement
+        let complement = target - nums[i];
+        // Explaining algorith using first given numbers: [2, 7, 11, 15]
+        // When i = 0, complement will be 26 - nums[0] (26 -2=24), algorithm asks if we have seen that number before and does it exist in numObj as a key (if it is not undefined in numObj)?
+        // if not - statement is false and we continue ... 
+        // Then we add nums[i], which is 2 - value of 0 in numObj
+        // when i = 1, complement will be 26 - nums[1] (26 - 7 = 19) which is also undefined so we still continue
+        // when i = 2, complement will be 26 - nums[2], (26 - 11) = 15 which is still undefined, then
+        // i = 3, where complement will be 26 - nums[3] = 11 (26 - 15 = 11), which is no more undefined because we saw 11 in the previous iteration
+        // The statement now becomes true so we return the value of the key of 11 in the numObj, which is 2, along with i which is 3 and this is our answer.
+
+        if (numObj[complement] !== undefined) {
+            return [numObj[complement], i];
+        }
+        numObj[nums[i]] = i;
+    }
+}
+
+// ************** 
+// This solution has a lot less iterations, which gives us an O(n) time complexity.
+
+console.log(findTwoSum(nums, 9)); // [0, 1]
+console.log(findTwoSum(nums2, 6)); // [1, 2]
+console.log(findTwoSum(nums3, 6)); // [0, 1]
