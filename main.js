@@ -73,3 +73,5 @@ function findTwoSum(nums, target) {
 console.log(findTwoSum(nums, 9)); // [0, 1]
 console.log(findTwoSum(nums2, 6)); // [1, 2]
 console.log(findTwoSum(nums3, 6)); // [0, 1]
+
+// asdf
