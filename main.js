@@ -1,29 +1,28 @@
-// Duplicate Zeros
-// Given a fixed-length integer array, duplicate each occurrence of zero, shifting the remaining elements to the right.
-// NOTE that elements beyond the length of the original array are not written. Do the above modifications to the input array in place and do not return anything.
+// Replace Elements with Greatest Element on Right Side
+
+// Input: arr = [17, 18, 5, 4, 6, 1]
+// Output: [18,6,6,6,1,-1]
+
+// Big O - O(n)
+
+let replaceElements = function (arr) {
+  let max = arr[arr.length - 1];
+
+  for (let j = arr.length - 2; j >= 0; --j) {
+    let curr = arr[j];
+    arr[j] = max;
+    max = Math.max(max, curr);
+  }
+
+  arr[arr.length - 1] = -1;
+  return arr;
+};
 
 // Example 1:
-// Input:
-// Output: [1,0,0,2,3,0,0,4,5];
 
+console.log(replaceElements([17, 18, 5, 4, 6, 1])); // Output: [18,6,6,6,1,-1]
 
-// Time O(n^2)
-// Space O(1)
-arr = [1, 0, 2, 3, 0, 4, 5, 0];
-arr2 = [1, 2, 3];
+// Example 2: 
+// arr = [400];
 
-const N = arr.length;
-for (let i = 0; i < N - 1; i++) {
-  if (arr[i] === 0) {
-    let prev = arr[i + 1];
-    for (let j = i + 2; j < N; j++) {
-      let temp = arr[j];
-      arr[j] = prev;
-      prev = temp;
-    }
-    arr[++i] = 0;
-  }
-}
-
-console.log(arr); // Output: [1,0,0,2,3,0,0,4]
-console.log(arr2); // Output: [1,2,3]
+console.log(replaceElements([400])); // Output: -1
