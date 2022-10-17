@@ -1,28 +1,24 @@
-// Replace Elements with Greatest Element on Right Side
+// Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
 
-// Input: arr = [17, 18, 5, 4, 6, 1]
-// Output: [18,6,6,6,1,-1]
+// Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+// Example 1: x = 123
+// Output: 321
+// Big O - O(n^2)
 
-// Big O - O(n)
+let reverse = function(x) {
+  // Convert value to string
+  const str = "" + Math.abs(x);
+  // Get array of digit characters, reverse it and join into a string again by using chaining method
+  const reversed = str.split("").reverse().join("");
+  const num = parseInt(reversed); // Convert back to integer
+  const revNum = Math.sign(x) * num;
+  // If number is out of range - return 0
+  if (revNum < Math.pow(-2, 31) || revNum > Math.pow(2, 31) -1) return;
+  return revNum;
+}
 
-let replaceElements = function (arr) {
-  let max = arr[arr.length - 1];
+console.log(reverse(123)); // Output: 321
+console.log(reverse(-123)); // Output: -321
+console.log(reverse(120)); // Output: 21
 
-  for (let j = arr.length - 2; j >= 0; --j) {
-    let curr = arr[j];
-    arr[j] = max;
-    max = Math.max(max, curr);
-  }
-
-  arr[arr.length - 1] = -1;
-  return arr;
-};
-
-// Example 1:
-
-console.log(replaceElements([17, 18, 5, 4, 6, 1])); // Output: [18,6,6,6,1,-1]
-
-// Example 2: 
-// arr = [400];
-
-console.log(replaceElements([400])); // Output: -1
+ 
