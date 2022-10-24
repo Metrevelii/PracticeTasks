@@ -1,65 +1,72 @@
-// A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, 
-// it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+// Length of Last word
 
-// Given a string s, return true if it is a palindrome, or false otherwise.
+//Given a string s consisting of words and spaces, return the length of the last word in the string.
+// A word is a maximal substring consisting of non-space characters only.
+// Example 1: 
+const s = "Hello World";
 
-// Example 1: s = "A man, a plan, a canal: Panama";
-// Output: true
+// Time O(n^2)
 
-// const s = "A man, a plan, a canal: Panama";
-// const toCleanerStr = s.replace(/[^a-z0-9]/gi, '').toLowerCase();
+const lastWordLength = function(s) {
+  // using trim method to remove spaces in the beggining or end, then - splitting words
+  let dividedWords = s.trim().split(' ');
 
+  // removing last element from these words, if there is no element we return 0;
+  const lastWord = dividedWords.pop() || '';
 
-// const isPalindrome = (string) => {
-//   const cleanStr = string.replace(/[^a-z0-9]/gi, '').toLowerCase();
-//   string === cleanStr.split('').reverse().join();
-//   console.log(string, cleanStr);
-// }
-
-// console.log(isPalindrome(s));
-// console.log(s.replace(/[^a-z0-9]/gi, '').toLowerCase());
-
-// console.log(isPalindrome(s));
-
-
-// console.log(isPalindrome('fof'));
-
-
-// Valid Palindrome II
-// Given a string s, return true if the s can be palindrome after deleting at most one character from it.
-
-// Example 1: Input: s = 'aba'
-// Output: true
-
-// Youtube videos shemdeg amoxsna:
-
-const isPalindrome = function(s) {
-  // Creating left pointer and assigning it to 0
-  let leftPointer = 0;
-  // Creating right pointer - assigning it to s.lenght - 1
-  let rightPointer = s.length - 1;
-  while (leftPointer < rightPointer) {
-    // If the values of pointer are not equal: find palindrome with leftPointer + 1 and rightPointer - 1 - return if any of them is true
-    if(s[leftPointer] !== s[rightPointer]) {
-      const checkLeft = checkInnerPalindrome(leftPointer + 1, rightPointer, s)
-      const checkRight = checkInnerPalindrome(leftPointer, rightPointer - 1, s)
-      return checkLeft || checkRight
-    }
-    leftPointer++
-    rightPointer--
-  }
+  return lastWord.length;
 }
 
-const checkInnerPalindrome = function(leftPointer, rightPointer, s) {
-  while (leftPointer < rightPointer) {
-    if(s[leftPointer] !== s[rightPointer]) {
-      return false
+
+// Example 1: 
+// console.log(lastWordLength(s));
+
+// Output: 5
+
+
+// Example 2:
+// s = "   fly me   to   the moon  "
+// Output: 4;
+
+// Example 3: 
+// s = "luffy is still joyboy"
+
+// Output: 6;
+
+console.log(lastWordLength(s));
+
+// 392. Is Subsequence
+
+// Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+// A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without
+// disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+// Time: O(n)
+
+// Example 1:
+// const s = "abc";
+// const t = "ahbgdc";
+// Output: true
+
+const isSubsequence = function(s, t) {
+  let i = 0
+  let j = 0;
+  // while they are within the ranges
+  while (i < s.length && j < t.length) {
+    // we compare then: if left side has same characters as right, we move them both forward:
+    if (s[i] === t[j]) {
+      i += 1
+      j += 1
+
+      // if not, we move right forward till it finds same characters
+    } else {
+      j += 1
     }
-    leftPointer++;
-    rightPointer--;
   }
-  return true;
+
+  return i === s.length
 }
 
-// Time complexity O(n)
-
+console.log(isSubsequence("abc", "ahbgdc")); // true
+console.log(isSubsequence("axc", "ahbgdc")); // false
